@@ -10,7 +10,7 @@
 
       <!-- logo for regular state and mobile devices -->
 
-      <span class="logo-lg"><b>NUZUL-DEV</span>
+      <span class="logo-lg"><b>WEB-BERITA</span>
 
     </a>
 

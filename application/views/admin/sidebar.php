@@ -54,7 +54,12 @@
 
     <ul class="treeview-menu">
 
-      <li><a href="javascript:void(0)"><i class="fa fa-circle-o"></i>Pengguna</a></li>
+      <li><a href="<?=site_url('admin/master/pengguna')?>"><i class="fa fa-circle-o"></i>Pengguna</a></li>
+
+      <li><a href="<?=site_url('admin/master/kategoriberita')?>"><i class="fa fa-circle-o"></i>Kategori Berita</a></li>
+
+      <li><a href="<?=site_url('admin/master/berita')?>"><i class="fa fa-circle-o"></i>Berita</a></li>
+
 
     </ul>
 
