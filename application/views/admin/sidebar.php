@@ -22,48 +22,38 @@
 
 </div>
 
-<!-- /.search form -->
-
-<!-- sidebar menu: : style can be found in sidebar.less -->
 
 <ul class="sidebar-menu" data-widget="tree">
-
-  <li>
-
-    <a href="<?=site_url('admin/dashboard')?>">
-
-      <i class="fa fa-home"></i> <span>Dashboard</span>
-
-    </a>
-
-  </li>
-
-  <li class="treeview">
-
-    <a href="#">
-
-      <i class="fa fa-table"></i> <span>Data Master</span>
-
-      <span class="pull-right-container">
-
-        <i class="fa fa-angle-left pull-right"></i>
-
-      </span>
-
-    </a>
-
-    <ul class="treeview-menu">
-
-      <li><a href="<?=site_url('admin/master/pengguna')?>"><i class="fa fa-circle-o"></i>Pengguna</a></li>
-
-      <li><a href="<?=site_url('admin/master/kategoriberita')?>"><i class="fa fa-circle-o"></i>Kategori Berita</a></li>
-
-      <li><a href="<?=site_url('admin/master/berita')?>"><i class="fa fa-circle-o"></i>Berita</a></li>
-
-
-    </ul>
-
-  </li>
+  <?php 
+  $this->db->order_by('menu.position','asc');
+  $menu = $this->db->get('menu')->result();
+  foreach ($menu as $m) : ?>
+    <?php if ($m->url): ?>
+      <li class="<?php if($this->uri->segment(2) == $m->url) echo 'active' ?>">
+        <a href="<?= site_url('admin/') . $m->url ?>">
+        <i class="<?= $m->fa_icon_code ?>"></i> <span><?= ucwords($m->menu_label) ?></span>
+        </a>
+      </li>
+    <?php else: ?>
+      <?php 
+      $sub_menu = $this->db->get_where('sub_menu',array('sub_menu.menu_id'=>$m->menu_id));
+      if ($sub_menu->num_rows()): ?>
+        <li class="treeview">
+          <a href="#">
+            <i class="<?= $m->fa_icon_code ?>"></i> <span><?= ucwords($m->menu_label) ?></span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <?php foreach ($sub_menu->result() as $sm): ?>
+              <li><a href="<?= site_url('admin/') . $sm->url_sub_menu ?>"><i class="fa fa-circle-o"></i> <?= ucwords($sm->sub_menu_name) ?></a></li>
+            <?php endforeach ?>
+          </ul>
+        </li>
+      <?php endif ?>
+    <?php endif ?>
+  <?php endforeach ?>
 
   <li>
 
